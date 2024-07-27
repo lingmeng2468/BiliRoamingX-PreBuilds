@@ -44,11 +44,11 @@ jobs:
         run: |
           pip install requests
   
-      - name: run main.py
+      - name: run Releases-PreBuilds.py
         env:
           PAT: ${{secrets.PAT}}
         run: |
-          python main.py
+          python Releases-PreBuilds.py
   
       - name: Set up Java
         uses: actions/setup-java@main
