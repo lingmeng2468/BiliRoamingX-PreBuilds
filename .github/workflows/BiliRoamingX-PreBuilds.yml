@@ -59,6 +59,7 @@ jobs:
 
       - name: Run ReVanced CLI
         run: |
+          cd /Downloads/
           java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
   
       - name: Upload artifact
@@ -66,6 +67,19 @@ jobs:
         with:
           name: BiliRoamingX PreBuilds
           path: /Downloads/
+
+      - name: Create Release and Upload Release Asset
+        uses: ncipollo/release-action@main
+        with:
+          artifacts: |
+            /Downloads/*
+          name: "Latest"
+          body: "Latest"
+          tag: "Latest"
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          prerelease: false
+          token: ${{ secrets.PAT }}
   
       - name: Delete old workflow run using Personal Token
         uses: Mattraks/delete-workflow-runs@main
