@@ -27,31 +27,34 @@ jobs:
           python-version: 3.13
           check-latest: true
   
-      - name: "Set up requests"
-        run: pip install requests
+      - name: Set up requests
+        run: |
+          pip install requests
   
-      - name: "run main.py"
+      - name: run main.py
         env:
           PAT: ${{secrets.PAT}}
-        run: python main.py
+        run: |
+          python main.py
   
-      - name: "Set up Java"
+      - name: Set up Java
         uses: actions/setup-java@main
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '21'
           check-latest: true
 
-      - name: "Run ReVanced CLI"
-        run: java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
+      - name: Run ReVanced CLI
+        run: |
+          java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
   
-      - name: "Upload artifact"
+      - name: Upload artifact
         uses: actions/upload-artifact@main
         with:
           name: ${{ inputs.Release_name }}
           path: /Downloads/
   
-      - name: "Delete old workflow run using Personal Token"
+      - name: Delete old workflow run using Personal Token
         uses: Mattraks/delete-workflow-runs@main
         with:
           token: ${{ secrets.PAT }}
