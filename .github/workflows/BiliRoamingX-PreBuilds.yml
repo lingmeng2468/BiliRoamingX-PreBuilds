@@ -61,7 +61,8 @@ jobs:
         run: |
           cd /Downloads/
           java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
-  
+          rm -rf /Downloads/*temporary-files
+
       - name: Upload artifact
         uses: actions/upload-artifact@main
         with:
@@ -72,7 +73,7 @@ jobs:
         uses: ncipollo/release-action@main
         with:
           artifacts: |
-            /Downloads/BiliBili-patched*
+            /Downloads/*patched*
           name: "Latest"
           body: "Latest"
           tag: "Latest"
