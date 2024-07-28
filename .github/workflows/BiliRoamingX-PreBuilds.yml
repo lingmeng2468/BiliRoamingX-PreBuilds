@@ -22,6 +22,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Crate Dir
+        run: |
+          mkdir -p /Dwonloads/
+          chmod -R 777 /Dwonloads/
+
       - name: Checkout
         uses: actions/checkout@main
   
@@ -89,6 +94,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Crate Dir
+        run: |
+          mkdir -p /Dwonloads/
+          chmod -R 777 /Dwonloads/
+
       - name: Checkout
         uses: actions/checkout@main
   
