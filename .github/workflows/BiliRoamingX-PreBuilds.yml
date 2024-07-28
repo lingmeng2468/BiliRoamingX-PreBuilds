@@ -72,9 +72,9 @@ jobs:
         with:
           artifacts: |
             /Downloads/*patched*
-          name: "Latest Releases"
-          body: "Latest Releases"
-          tag: "Latest Releases"
+          name: "Latest-Releases"
+          body: "Latest-Releases"
+          tag: "Latest-Releases"
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: false
@@ -173,9 +173,9 @@ jobs:
         with:
           artifacts: |
             /Downloads/*patched*
-          name: "Latest Source"
-          body: "Latest Source"
-          tag: "Latest Source"
+          name: "Latest-Source"
+          body: "Latest-Source"
+          tag: "Latest-Source"
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: false
