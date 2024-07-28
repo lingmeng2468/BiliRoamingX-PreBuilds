@@ -147,6 +147,9 @@ jobs:
           java-version: '21'
           check-latest: true
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@main
+
       - name: Cache gradle
         uses: actions/cache@main
         with:
