@@ -24,8 +24,8 @@ jobs:
     steps:
       - name: Crate Dir
         run: |
-          sudo mkdir -p /Dwonloads/
-          sudo chmod -R 777 /Dwonloads/
+          sudo mkdir -p /Downloads/
+          sudo chmod -R 777 /Downloads/
 
       - name: Checkout
         uses: actions/checkout@main
@@ -96,8 +96,8 @@ jobs:
     steps:
       - name: Crate Dir
         run: |
-          sudo mkdir -p /Dwonloads/
-          sudo chmod -R 777 /Dwonloads/
+          sudo mkdir -p /Downloads/
+          sudo chmod -R 777 /Downloads/
 
       - name: Checkout
         uses: actions/checkout@main
