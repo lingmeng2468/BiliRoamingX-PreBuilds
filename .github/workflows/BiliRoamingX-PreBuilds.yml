@@ -10,7 +10,7 @@ on:
         description: 'Use Source code'
         type: boolean
         default: false
-        required: false
+        required: true
   repository_dispatch:
     types: [BiliRoamingX-PreBuilds]
 
@@ -99,7 +99,7 @@ jobs:
 
   BiliRoamingX-Source-PreBuilds:
     name: BiliRoamingX Source PreBuilds
-    if: ${{ github.event.inputs.UseSource = 'true' }}
+    if: ${{ github.event.inputs.UseSource == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
