@@ -91,8 +91,8 @@ if isinstance(revanced_cli_data, dict) and 'assets' in revanced_cli_data:
         if asset['name'].endswith('.jar') and not revanced_cli_jar_url:
             revanced_cli_jar_url = asset['browser_download_url']
 
-        # 如果两个 URL 都找到了，就跳出循环
-        if BiliRoamingX_jar_url:
+        # 如果 URL 都找到了，就跳出循环
+        if revanced_cli_jar_url:
             break
 
 # 转换为字符串并打印
