@@ -5,13 +5,20 @@ name: BiliRoamingX PreBuilds
 
 on:
   workflow_dispatch:
+    inputs:
+      UseSource:
+        description: 'Use Source code'
+        type: boolean
+        default: false
+        required: false
   repository_dispatch:
     types: [BiliRoamingX-PreBuilds]
 
 
 jobs:
-  PreBuilds:
-    name: BiliRoamingX PreBuilds
+  BiliRoamingX-Releases-PreBuilds:
+    name: BiliRoamingX Releases PreBuilds
+    if: ${{ github.event.inputs.UseSource != 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -56,6 +63,96 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '21'
           check-latest: true
+
+      - name: Run ReVanced CLI
+        run: |
+          cd /Downloads/
+          java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
+          rm -rf /Downloads/*temporary-files
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: BiliRoamingX PreBuilds
+          path: /Downloads/
+
+      - name: Create Release and Upload Release Asset
+        uses: ncipollo/release-action@main
+        with:
+          artifacts: |
+            /Downloads/*patched*
+          name: "Latest"
+          body: "Latest"
+          tag: "Latest"
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          prerelease: false
+          token: ${{ secrets.PAT }}
+  
+      - name: Delete old workflow run using Personal Token
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
+
+  BiliRoamingX-Source-PreBuilds:
+    name: BiliRoamingX Source PreBuilds
+    if: ${{ github.event.inputs.UseSource = 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free Disk-Space
+        run: |
+          df -h
+          docker rmi `docker images -q`
+          docker system prune -a -f
+          sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php
+          sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap* || true
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq install libfuse-dev $(curl -fsSL git.io/depends-ubuntu-2204)
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          sudo mkdir -p /Downloads
+          sudo chown $USER:$GROUPS /Downloads
+          df -h
+
+      - name: Checkout
+        uses: actions/checkout@main
+  
+      - name: Set up Python
+        uses: actions/setup-python@main
+        with:
+          python-version: 3.13
+          check-latest: true
+          allow-prereleases: true
+  
+      - name: Set up requests
+        run: |
+          pip install requests
+  
+      - name: run Source-PreBuilds.py
+        env:
+          PAT: ${{secrets.PAT}}
+        run: |
+          python Source-PreBuilds.py
+  
+      - name: Set up Java
+        uses: actions/setup-java@main
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+          check-latest: true
+
+      - name: Build BiliRoamingX
+        run: |
+          cd /Downloads/
+          git clone --recurse-submodules https://github.com/BiliRoamingX/BiliRoamingX.git
+          cd BiliRoamingX
+          ./gradlew dist
+          mv /Downloads/BiliRoamingX/build/*integrations*.apk /Downloads/integrations.apk
+          mv /Downloads/BiliRoamingX/build/*patches*.jar /Downloads/patches.jar
 
       - name: Run ReVanced CLI
         run: |
