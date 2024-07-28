@@ -2,14 +2,13 @@ import os
 import requests
 
 Github_Token = os.environ["PAT"]
+Folder_Path = os.environ["Folder_Path"]
 
 BiliBili_apk_url = "https://dl.hdslb.com/mobile/latest/android64/iBiliPlayer-bili.apk"
 
-BiliBili_apk_file_path = "/Downloads/"
-
 BiliBili_apk_response = requests.request("GET", BiliBili_apk_url)
 
-with open(BiliBili_apk_file_path + "BiliBili.apk", "wb") as f:
+with open(Folder_Path + "BiliBili.apk", "wb") as f:
     f.write(BiliBili_apk_response.content)
 
 revanced_cli_url = "https://api.github.com/repos/zjns/revanced-cli/releases/latest"
@@ -46,9 +45,7 @@ revanced_cli_jar_url_str = str(revanced_cli_jar_url)
 
 revanced_cli_jar_url = revanced_cli_jar_url_str
 
-revanced_cli_jar_file_path = "/Downloads/"
-
 revanced_cli_jar_response = requests.request("GET", revanced_cli_jar_url)
 
-with open(revanced_cli_jar_file_path + "revanced-cli.jar", "wb") as f:
+with open(Folder_Path + "revanced-cli.jar", "wb") as f:
     f.write(revanced_cli_jar_response.content)
