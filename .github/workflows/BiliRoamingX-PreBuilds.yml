@@ -33,7 +33,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@main
         with:
-          python-version: 3.13
+          python-version: 3
           check-latest: true
           allow-prereleases: true
   
@@ -105,7 +105,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@main
         with:
-          python-version: 3.13
+          python-version: 3
           check-latest: true
           allow-prereleases: true
   
