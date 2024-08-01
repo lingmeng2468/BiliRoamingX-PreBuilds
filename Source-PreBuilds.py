@@ -16,7 +16,9 @@ print(temurin_version_response.text)
 
 temurin_version_data = temurin_version_response.json()
 
-os.environ['Temurin_Version'] = str(temurin_version_data["most_recent_feature_release"])
+Github_ENV = os.getenv('GITHUB_ENV')
+with open(Github_ENV, "a") as myfile:
+    myfile.write("Temurin_Version=" + str(temurin_version_data["most_recent_feature_release"]))
 
 BiliBili_apk_url = "https://dl.hdslb.com/mobile/latest/android64/iBiliPlayer-bili.apk"
 
