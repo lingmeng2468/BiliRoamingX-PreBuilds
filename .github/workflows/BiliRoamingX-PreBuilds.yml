@@ -52,7 +52,7 @@ jobs:
         uses: actions/setup-java@main
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '22'
+          java-version: ${{Temurin_Version}}
           check-latest: true
 
       - name: Run ReVanced CLI
@@ -124,7 +124,7 @@ jobs:
         uses: actions/setup-java@main
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '22'
+          java-version: ${{Temurin_Version}}
           check-latest: true
 
       - name: Cache gradle
