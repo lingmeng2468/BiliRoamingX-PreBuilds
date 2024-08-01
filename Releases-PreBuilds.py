@@ -12,7 +12,7 @@ temurin_version_headers = {
 
 temurin_version_response = requests.request("GET", temurin_version_url, headers=temurin_version_headers)
 
-print(temurin_version_response.text)
+# print(temurin_version_response.text)
 
 temurin_version_data = temurin_version_response.json()
 
