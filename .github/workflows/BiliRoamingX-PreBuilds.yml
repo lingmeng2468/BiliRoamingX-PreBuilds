@@ -127,16 +127,6 @@ jobs:
           java-version: ${{ env.Temurin_Version }}
           check-latest: true
 
-      - name: Cache gradle
-        uses: actions/cache@main
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/*.versions.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
       - name: Retrieve version
         run: |
           cd /Downloads/
