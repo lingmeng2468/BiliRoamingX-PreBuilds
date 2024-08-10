@@ -67,27 +67,19 @@ jobs:
         with:
          apkPath: /Downloads/BiliBili.apk
 
-      - name: Storage BiliBili.apk version number
-        run: |
-          echo "BiliBili_apk_VERSION=$steps.BiliBili-apk.outputs.versionNum" >> $GITHUB_ENV
-
       - name: Get integrations Apk Info
         id: integrations-apk
         uses: 8Mi-Tech/get-apk-info-action@master
         with:
          apkPath: /Downloads/integrations.apk
 
-      - name: Storage integrations.apk version number
-        run: |
-          echo "integrations_apk_VERSION=$steps.integrations-apk.outputs.versionNum" >> $GITHUB_ENV
-
       - name: Generate Releases Name
         run: |
-          echo "Releases_Name=BiliBili $BiliBili_apk_VERSION BiliRoamingX $integrations_apk_VERSION" >> $GITHUB_ENV
+          echo "Releases_Name=BiliBili ${{steps.BiliBili-apk.outputs.versionNum}} BiliRoamingX ${{steps.integrations-apk.outputs.versionNum}}" >> $GITHUB_ENV
 
       - name: Generate Tag
         run: |
-          echo "Tag=BiliBili$BiliBili_apk_VERSION+BiliRoamingX$BiliRoamingX_VERSION" >> $GITHUB_ENV
+          echo "Tag=BiliBili${{steps.BiliBili-apk.outputs.versionNum}}+BiliRoamingX${{steps.integrations-apk.outputs.versionNum}}" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-artifact@main
@@ -190,21 +182,17 @@ jobs:
         with:
          apkPath: /Downloads/BiliBili.apk
 
-      - name: Storage BiliBili.apk version number
-        run: |
-          echo "BiliBili_apk_VERSION=$steps.BiliBili-apk.outputs.versionNum" >> $GITHUB_ENV
-
       - name: Storage BiliRoamingX version
         run: |
           echo "BiliRoamingX_VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Generate Releases Name
         run: |
-          echo "Releases_Name=BiliBili $BiliBili_apk_VERSION BiliRoamingX $BiliRoamingX_VERSION" >> $GITHUB_ENV
+          echo "Releases_Name=BiliBili ${{steps.BiliBili-apk.outputs.versionNum}} BiliRoamingX $BiliRoamingX_VERSION" >> $GITHUB_ENV
 
       - name: Generate Tag
         run: |
-          echo "Tag=BiliBili$BiliBili_apk_VERSION+BiliRoamingX$BiliRoamingX_VERSION" >> $GITHUB_ENV
+          echo "Tag=BiliBili${{steps.BiliBili-apk.outputs.versionNum}}+BiliRoamingX$BiliRoamingX_VERSION" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-artifact@main
@@ -215,6 +203,8 @@ jobs:
       - name: Delete All Releases
         run: |
           gh release list | sed 's/|/ /' | awk '{print $1, $8}' | while read -r line; do gh release delete -y "$line"; done
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Create Release and Upload Release Asset
         uses: ncipollo/release-action@main
