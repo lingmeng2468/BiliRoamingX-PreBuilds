@@ -68,7 +68,7 @@ jobs:
 
       - name: Storage BiliBili.apk version number
         run: |
-          echo "BiliBili_apk_VERSION=$versionNum" >> $GITHUB_ENV
+          echo "BiliBili_apk_VERSION=$versionName" >> $GITHUB_ENV
 
       - name: Get integrations Apk Info
         uses: 8Mi-Tech/get-apk-info-action@master
@@ -77,11 +77,11 @@ jobs:
 
       - name: Storage integrations.apk version number
         run: |
-          echo "integrations_apk_VERSION=$versionNum" >> $GITHUB_ENV
+          echo "integrations_apk_VERSION=$versionName" >> $GITHUB_ENV
 
       - name: Generate Releases Name
         run: |
-          echo 'Releases_Name="BiliBili " + $BiliBili_apk_VERSION + "BiliRoamingX " + $integrations_apk_VERSION' >> $GITHUB_ENV
+          echo "Releases_Name=BiliBili $BiliBili_apk_VERSION BiliRoamingX $integrations_apk_VERSION" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-artifact@main
@@ -181,7 +181,7 @@ jobs:
 
       - name: Storage BiliBili.apk version number
         run: |
-          echo "BiliBili_apk_VERSION=$versionNum" >> $GITHUB_ENV
+          echo "BiliBili_apk_VERSION=$versionName" >> $GITHUB_ENV
 
       - name: Storage BiliRoamingX version
         run: |
@@ -189,7 +189,7 @@ jobs:
 
       - name: Generate Releases Name
         run: |
-          echo 'Releases_Name="BiliBili " + $BiliBili_apk_VERSION + "BiliRoamingX " + $BiliRoamingX_VERSION' >> $GITHUB_ENV
+          echo "Releases_Name=BiliBili $BiliBili_apk_VERSION BiliRoamingX $BiliRoamingX_VERSION" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-artifact@main
