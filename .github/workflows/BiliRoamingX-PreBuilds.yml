@@ -62,32 +62,42 @@ jobs:
           rm -rf /Downloads/*temporary-files
 
       - name: Get BiliBili Apk Info
+        id: BiliBili-apk
         uses: 8Mi-Tech/get-apk-info-action@master
         with:
          apkPath: /Downloads/BiliBili.apk
 
       - name: Storage BiliBili.apk version number
         run: |
-          echo "BiliBili_apk_VERSION=$versionNum" >> $GITHUB_ENV
+          echo "BiliBili_apk_VERSION=$steps.BiliBili-apk.outputs.versionNum" >> $GITHUB_ENV
 
       - name: Get integrations Apk Info
+        id: integrations-apk
         uses: 8Mi-Tech/get-apk-info-action@master
         with:
          apkPath: /Downloads/integrations.apk
 
       - name: Storage integrations.apk version number
         run: |
-          echo "integrations_apk_VERSION=$versionNum" >> $GITHUB_ENV
+          echo "integrations_apk_VERSION=$steps.integrations-apk.outputs.versionNum" >> $GITHUB_ENV
 
       - name: Generate Releases Name
         run: |
           echo "Releases_Name=BiliBili $BiliBili_apk_VERSION BiliRoamingX $integrations_apk_VERSION" >> $GITHUB_ENV
+
+      - name: Generate Tag
+        run: |
+          echo "Tag=BiliBili$BiliBili_apk_VERSION+BiliRoamingX$BiliRoamingX_VERSION" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-artifact@main
         with:
           name: BiliRoamingX PreBuilds
           path: /Downloads/
+
+      - name: Delete All Releases
+        run: |
+          gh release list | sed 's/|/ /' | awk '{print $1, $8}' | while read -r line; do gh release delete -y "$line"; done
 
       - name: Create Release and Upload Release Asset
         uses: ncipollo/release-action@main
@@ -96,7 +106,7 @@ jobs:
             /Downloads/*patched*
           name: ${{ env.Releases_Name }}
           body: ${{ env.Releases_Name }}
-          tag: "Latest-Releases"
+          tag: ${{ env.Tag }}
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: false
@@ -175,13 +185,14 @@ jobs:
           rm -rf /Downloads/*temporary-files
 
       - name: Get BiliBili Apk Info
+        id: BiliBili-apk
         uses: 8Mi-Tech/get-apk-info-action@master
         with:
          apkPath: /Downloads/BiliBili.apk
 
       - name: Storage BiliBili.apk version number
         run: |
-          echo "BiliBili_apk_VERSION=$versionNum" >> $GITHUB_ENV
+          echo "BiliBili_apk_VERSION=$steps.BiliBili-apk.outputs.versionNum" >> $GITHUB_ENV
 
       - name: Storage BiliRoamingX version
         run: |
@@ -191,11 +202,19 @@ jobs:
         run: |
           echo "Releases_Name=BiliBili $BiliBili_apk_VERSION BiliRoamingX $BiliRoamingX_VERSION" >> $GITHUB_ENV
 
+      - name: Generate Tag
+        run: |
+          echo "Tag=BiliBili$BiliBili_apk_VERSION+BiliRoamingX$BiliRoamingX_VERSION" >> $GITHUB_ENV
+
       - name: Upload artifact
         uses: actions/upload-artifact@main
         with:
           name: BiliRoamingX PreBuilds
           path: /Downloads/
+
+      - name: Delete All Releases
+        run: |
+          gh release list | sed 's/|/ /' | awk '{print $1, $8}' | while read -r line; do gh release delete -y "$line"; done
 
       - name: Create Release and Upload Release Asset
         uses: ncipollo/release-action@main
@@ -204,7 +223,7 @@ jobs:
             /Downloads/*patched*
           name: ${{ env.Releases_Name }}
           body: ${{ env.Releases_Name }}
-          tag: "Latest-Source"
+          tag: ${{ env.Tag }}
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: false
