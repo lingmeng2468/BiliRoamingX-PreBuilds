@@ -88,8 +88,19 @@ jobs:
           path: /Downloads/
 
       - name: Delete All Releases
-        run: |
-          gh release list | sed 's/|/ /' | awk '{print $1, $8}' | while read -r line; do gh release delete -y "$line"; done
+        uses: sgpublic/delete-release-action@master
+        with:
+          # repo: '<owner>/<repoName>' # you can input a another repo here, defaults to current repo
+          release-drop: true
+          release-keep-count: -1
+          release-drop-tag: true
+          pre-release-drop: true
+          pre-release-keep-count: -1
+          pre-release-drop-tag: true
+          draft-drop: true
+          draft-drop-count: -1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Create Release and Upload Release Asset
         uses: ncipollo/release-action@main
@@ -201,10 +212,19 @@ jobs:
           path: /Downloads/
 
       - name: Delete All Releases
-        run: |
-          gh release list | sed 's/|/ /' | awk '{print $1, $8}' | while read -r line; do gh release delete -y "$line"; done
+        uses: sgpublic/delete-release-action@master
+        with:
+          # repo: '<owner>/<repoName>' # you can input a another repo here, defaults to current repo
+          release-drop: true
+          release-keep-count: -1
+          release-drop-tag: true
+          pre-release-drop: true
+          pre-release-keep-count: -1
+          pre-release-drop-tag: true
+          draft-drop: true
+          draft-drop-count: -1
         env:
-          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Create Release and Upload Release Asset
         uses: ncipollo/release-action@main
