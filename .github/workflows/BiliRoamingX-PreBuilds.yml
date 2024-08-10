@@ -61,6 +61,28 @@ jobs:
           java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
           rm -rf /Downloads/*temporary-files
 
+      - name: Get BiliBili Apk Info
+        uses: 8Mi-Tech/get-apk-info-action@master
+        with:
+         apkPath: /Downloads/BiliBili.apk
+
+      - name: Storage BiliBili.apk version number
+        run: |
+          echo "BiliBili_apk_VERSION=$versionNum" >> $GITHUB_ENV
+
+      - name: Get integrations Apk Info
+        uses: 8Mi-Tech/get-apk-info-action@master
+        with:
+         apkPath: /Downloads/integrations.apk
+
+      - name: Storage integrations.apk version number
+        run: |
+          echo "integrations_apk_VERSION=$versionNum" >> $GITHUB_ENV
+
+      - name: Generate Releases Name
+        run: |
+          echo 'Releases_Name="BiliBili " + $BiliBili_apk_VERSION + "BiliRoamingX " + $integrations_apk_VERSION' >> $GITHUB_ENV
+
       - name: Upload artifact
         uses: actions/upload-artifact@main
         with:
@@ -72,13 +94,13 @@ jobs:
         with:
           artifacts: |
             /Downloads/*patched*
-          name: "Latest-Releases"
-          body: "Latest-Releases"
+          name: ${{ env.Releases_Name }}
+          body: ${{ env.Releases_Name }}
           tag: "Latest-Releases"
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: false
-          token: ${{ secrets.PAT }}
+          token: ${{ github.token }}
   
       - name: Delete old workflow run
         uses: Mattraks/delete-workflow-runs@main
@@ -152,6 +174,23 @@ jobs:
           java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
           rm -rf /Downloads/*temporary-files
 
+      - name: Get BiliBili Apk Info
+        uses: 8Mi-Tech/get-apk-info-action@master
+        with:
+         apkPath: /Downloads/BiliBili.apk
+
+      - name: Storage BiliBili.apk version number
+        run: |
+          echo "BiliBili_apk_VERSION=$versionNum" >> $GITHUB_ENV
+
+      - name: Storage BiliRoamingX version
+        run: |
+          echo "BiliRoamingX_VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Generate Releases Name
+        run: |
+          echo 'Releases_Name="BiliBili " + $BiliBili_apk_VERSION + "BiliRoamingX " + $BiliRoamingX_VERSION' >> $GITHUB_ENV
+
       - name: Upload artifact
         uses: actions/upload-artifact@main
         with:
@@ -163,13 +202,13 @@ jobs:
         with:
           artifacts: |
             /Downloads/*patched*
-          name: "Latest-Source"
-          body: "Latest-Source"
+          name: ${{ env.Releases_Name }}
+          body: ${{ env.Releases_Name }}
           tag: "Latest-Source"
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: false
-          token: ${{ secrets.PAT }}
+          token: ${{ github.token }}
   
       - name: Delete old workflow run
         uses: Mattraks/delete-workflow-runs@main
