@@ -11,8 +11,15 @@ on:
         type: boolean
         default: false
         required: true
+
   repository_dispatch:
     types: [BiliRoamingX-PreBuilds]
+    inputs:
+      UseSource:
+        description: 'Use Source code'
+        type: boolean
+        default: false
+        required: true
 
 
 jobs:
