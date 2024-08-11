@@ -35,7 +35,7 @@ jobs:
   BiliRoamingX-Releases-PreBuilds:
     needs: Check-payload
     name: BiliRoamingX Releases PreBuilds
-    if: ${{ needs.Check-payload.outputs.UseSource != 'true' }}
+    if: ${{ needs.Check-payload.outputs.UseSource != true }}
     runs-on: ubuntu-latest
 
     steps:
@@ -143,7 +143,7 @@ jobs:
   BiliRoamingX-Source-PreBuilds:
     needs: Check-payload
     name: BiliRoamingX Source PreBuilds
-    if: ${{ needs.Check-payload.outputs.UseSource == 'true' }}
+    if: ${{ needs.Check-payload.outputs.UseSource == true }}
     runs-on: ubuntu-latest
 
     steps:
