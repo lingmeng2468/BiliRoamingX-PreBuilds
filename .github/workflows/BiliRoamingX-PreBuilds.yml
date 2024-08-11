@@ -17,9 +17,22 @@ on:
 
 
 jobs:
+  Check-payload:
+    name: Check the payload
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the payload
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "UseSource=${{ github.event.inputs.UseSource }}" >> $GITHUB_ENV
+          elif [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+            echo "UseSource=${{ github.event.client_payload.UseSource }}" >> $GITHUB_ENV
+          fi
+
   BiliRoamingX-Releases-PreBuilds:
+    needs: Check-payload
     name: BiliRoamingX Releases PreBuilds
-    if: ${{ github.event.inputs.UseSource != 'true' }}
+    if: ${{ env.UseSource != 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -125,8 +138,9 @@ jobs:
           keep_minimum_runs: 0
 
   BiliRoamingX-Source-PreBuilds:
+    needs: Check-payload
     name: BiliRoamingX Source PreBuilds
-    if: ${{ github.event.inputs.UseSource == 'true' }}
+    if: ${{ env.UseSource == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
