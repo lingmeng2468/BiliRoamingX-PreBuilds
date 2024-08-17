@@ -89,19 +89,14 @@ jobs:
           path: /Downloads/
 
       - name: Delete All Releases
-        uses: sgpublic/delete-release-action@master
-        with:
-          # repo: '<owner>/<repoName>' # you can input a another repo here, defaults to current repo
-          release-drop: true
-          release-keep-count: -1
-          release-drop-tag: true
-          pre-release-drop: true
-          pre-release-keep-count: -1
-          pre-release-drop-tag: true
-          draft-drop: true
-          draft-drop-count: -1
+        run: |
+          gh release list --limit 9999 \
+            | cut -f3 \
+            | while read release_tag; do
+            gh release delete --cleanup-tag -y "$release_tag"
+          done
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Create Release and Upload Release Asset
         uses: ncipollo/release-action@main
