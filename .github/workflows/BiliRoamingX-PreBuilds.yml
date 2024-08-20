@@ -312,7 +312,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@main
         with:
-          name: BiliRoamingX PreBuilds
+          name: BiliBili-Play BiliRoamingX PreBuilds
           path: /Downloads/
 
       - name: Create Release and Upload Release Asset
@@ -422,7 +422,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@main
         with:
-          name: BiliRoamingX PreBuilds
+          name: BiliBili-Play BiliRoamingX PreBuilds
           path: /Downloads/
 
       - name: Create Release and Upload Release Asset
