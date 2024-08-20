@@ -22,7 +22,12 @@ with open(Github_ENV, "a") as Github_ENV_File:
 
 BiliBili_apk_url = "https://d.apkpure.com/b/APK/com.bilibili.app.in?version=latest"
 
-BiliBili_apk_response = requests.request("GET", BiliBili_apk_url)
+BiliBili_apk_headers = {
+    'User-Agent': 'Github Actions',
+    'Accept-Encoding': 'gzip, deflate, br'
+}
+
+BiliBili_apk_response = requests.request("GET", BiliBili_apk_url, headers=BiliBili_apk_headers)
 
 with open(Folder_Path + "BiliBili.apk", "wb") as f:
     f.write(BiliBili_apk_response.content)
