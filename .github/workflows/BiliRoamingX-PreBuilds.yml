@@ -362,7 +362,7 @@ jobs:
         run: |
           pip install requests
 
-      - name: run BiliBili/Source-PreBuilds.py
+      - name: run BiliBili-Play/Source-PreBuilds.py
         env:
           Folder_Path: /Downloads/
           PAT: ${{secrets.PAT}}
