@@ -24,7 +24,9 @@ BiliBili_apk_url = "https://d.apkpure.com/b/APK/com.bilibili.app.in?version=late
 
 BiliBili_apk_headers = {
     'User-Agent': 'Github Actions',
-    'Accept-Encoding': 'gzip, deflate, br'
+    'Accept': '*/*',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive'
 }
 
 BiliBili_apk_response = requests.request("GET", BiliBili_apk_url, headers=BiliBili_apk_headers)
