@@ -1,5 +1,7 @@
 import os
 import requests
+from bs4 import BeautifulSoup
+import cloudscraper
 
 Github_Token = os.environ["PAT"]
 Folder_Path = os.environ["Folder_Path"]
@@ -21,6 +23,7 @@ with open(Github_ENV, "a") as Github_ENV_File:
     Github_ENV_File.write("Temurin_Version=" + str(temurin_version_data["most_recent_feature_release"]))
 
 BiliBili_apk_url = "https://d.apkpure.com/b/APK/com.bilibili.app.in?version=latest"
+scraper = cloudscraper.create_scraper()
 
 BiliBili_apk_headers = {
     'User-Agent': 'Github Actions',
@@ -29,7 +32,8 @@ BiliBili_apk_headers = {
     'Connection': 'keep-alive'
 }
 
-BiliBili_apk_response = requests.request("GET", BiliBili_apk_url, headers=BiliBili_apk_headers)
+BiliBili_apk_response = scraper.get(BiliBili_apk_url) 
+# BiliBili_apk_response = requests.request("GET", BiliBili_apk_url, headers=BiliBili_apk_headers)
 
 with open(Folder_Path + "BiliBili.apk", "wb") as f:
     f.write(BiliBili_apk_response.content)

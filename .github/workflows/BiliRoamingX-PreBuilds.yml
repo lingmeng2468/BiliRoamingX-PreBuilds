@@ -267,7 +267,7 @@ jobs:
 
       - name: Set up requests
         run: |
-          pip install requests
+          pip install requests cloudscraper beautifulsoup4
 
       - name: run BiliBili-Play/Releases-PreBuilds.py
         env:
@@ -360,7 +360,7 @@ jobs:
 
       - name: Set up requests
         run: |
-          pip install requests
+          pip install requests cloudscraper beautifulsoup4
 
       - name: run BiliBili-Play/Source-PreBuilds.py
         env:
