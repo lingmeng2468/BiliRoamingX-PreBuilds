@@ -114,6 +114,7 @@ jobs:
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: false
+          makeLatest: true
           token: ${{ github.token }}
   
       - name: Delete old workflow run
@@ -233,6 +234,7 @@ jobs:
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: false
+          makeLatest: true
           token: ${{ github.token }}
   
       - name: Delete old workflow run
