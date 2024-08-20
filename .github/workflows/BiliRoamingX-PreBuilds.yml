@@ -245,6 +245,7 @@ jobs:
 
   BiliBili-Play-BiliRoamingX-Releases-PreBuilds:
     name: BiliBili-Play BiliRoamingX Releases PreBuilds
+    needs: [BiliRoamingX-Releases-PreBuilds]
     if: ${{ github.event.inputs.UseSource != 'true' && github.event.inputs.BuildPlay == 'true'}}
     runs-on: ubuntu-latest
 
@@ -337,6 +338,7 @@ jobs:
 
   BiliBili-Play-BiliRoamingX-Source-PreBuilds:
     name: BiliBili-Play BiliRoamingX Source PreBuilds
+    needs: [BiliRoamingX-Source-PreBuilds]
     if: ${{ github.event.inputs.UseSource == 'true' && github.event.inputs.BuildPlay == 'true'}}
     runs-on: ubuntu-latest
 
