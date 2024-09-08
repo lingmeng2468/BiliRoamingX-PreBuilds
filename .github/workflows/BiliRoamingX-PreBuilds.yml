@@ -46,7 +46,14 @@ jobs:
       - name: Set up requests
         run: |
           pip install requests
-  
+
+      - name: run Public/main.py
+        env:
+          Folder_Path: /Downloads/
+          PAT: ${{secrets.PAT}}
+        run: |
+          python Public/main.py
+
       - name: run BiliBili/Releases-PreBuilds.py
         env:
           Folder_Path: /Downloads/
@@ -66,6 +73,12 @@ jobs:
           cd /Downloads/
           java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
           rm -rf /Downloads/*temporary-files
+
+      - name: Resign Bilix
+        run: |
+          cp Public/RAMATTRA.jks /Downloads/RAMATTRA.jks
+          cd /Downloads/
+          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.jks --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
 
       - name: Get BiliBili Apk Info
         id: BiliBili-apk
@@ -149,7 +162,14 @@ jobs:
       - name: Set up requests
         run: |
           pip install requests
-  
+
+      - name: run Public/main.py
+        env:
+          Folder_Path: /Downloads/
+          PAT: ${{secrets.PAT}}
+        run: |
+          python Public/main.py
+
       - name: run BiliBili/Source-PreBuilds.py
         env:
           Folder_Path: /Downloads/
@@ -188,6 +208,12 @@ jobs:
           cd /Downloads/
           java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
           rm -rf /Downloads/*temporary-files
+
+      - name: Resign Bilix
+        run: |
+          cp Public/RAMATTRA.jks /Downloads/RAMATTRA.jks
+          cd /Downloads/
+          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.jks --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
 
       - name: Get BiliBili Apk Info
         id: BiliBili-apk
@@ -271,6 +297,13 @@ jobs:
         run: |
           pip install requests cloudscraper beautifulsoup4
 
+      - name: run Public/main.py
+        env:
+          Folder_Path: /Downloads/
+          PAT: ${{secrets.PAT}}
+        run: |
+          python Public/main.py
+
       - name: run BiliBili-Play/Releases-PreBuilds.py
         env:
           Folder_Path: /Downloads/
@@ -290,6 +323,12 @@ jobs:
           cd /Downloads/
           java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
           rm -rf /Downloads/*temporary-files
+
+      - name: Resign Bilix
+        run: |
+          cp Public/RAMATTRA.jks /Downloads/RAMATTRA.jks
+          cd /Downloads/
+          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.jks --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
 
       - name: Get BiliBili Apk Info
         id: BiliBili-apk
@@ -364,6 +403,13 @@ jobs:
         run: |
           pip install requests cloudscraper beautifulsoup4
 
+      - name: run Public/main.py
+        env:
+          Folder_Path: /Downloads/
+          PAT: ${{secrets.PAT}}
+        run: |
+          python Public/main.py
+
       - name: run BiliBili-Play/Source-PreBuilds.py
         env:
           Folder_Path: /Downloads/
@@ -402,6 +448,12 @@ jobs:
           cd /Downloads/
           java -jar /Downloads/revanced-cli.jar patch --merge /Downloads/integrations.apk --patch-bundle /Downloads/patches.jar --signing-levels 1,2,3 /Downloads/BiliBili.apk
           rm -rf /Downloads/*temporary-files
+
+      - name: Resign Bilix
+        run: |
+          cp Public/RAMATTRA.jks /Downloads/RAMATTRA.jks
+          cd /Downloads/
+          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.jks --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
 
       - name: Get BiliBili Apk Info
         id: BiliBili-apk
