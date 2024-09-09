@@ -76,9 +76,9 @@ jobs:
 
       - name: Resign Bilix
         run: |
-          cp Public/RAMATTRA.jks /Downloads/RAMATTRA.jks
+          cp Public/RAMATTRA.keystore /Downloads/RAMATTRA.keystore
           cd /Downloads/
-          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.jks --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
+          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.keystore --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
 
       - name: Get BiliBili Apk Info
         id: BiliBili-apk
@@ -211,9 +211,9 @@ jobs:
 
       - name: Resign Bilix
         run: |
-          cp Public/RAMATTRA.jks /Downloads/RAMATTRA.jks
+          cp Public/RAMATTRA.keystore /Downloads/RAMATTRA.keystore
           cd /Downloads/
-          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.jks --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
+          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.keystore --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
 
       - name: Get BiliBili Apk Info
         id: BiliBili-apk
@@ -326,9 +326,9 @@ jobs:
 
       - name: Resign Bilix
         run: |
-          cp Public/RAMATTRA.jks /Downloads/RAMATTRA.jks
+          cp Public/RAMATTRA.keystore /Downloads/RAMATTRA.keystore
           cd /Downloads/
-          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.jks --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
+          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.keystore --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
 
       - name: Get BiliBili Apk Info
         id: BiliBili-apk
@@ -451,9 +451,9 @@ jobs:
 
       - name: Resign Bilix
         run: |
-          cp Public/RAMATTRA.jks /Downloads/RAMATTRA.jks
+          cp Public/RAMATTRA.keystore /Downloads/RAMATTRA.keystore
           cd /Downloads/
-          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.jks --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
+          java -jar uber-apk-signer.jar -a BiliBili-patched.apk --overwrite --allowResign --ks /Downloads/RAMATTRA.keystore --ksAlias ${{ secrets.signalias }} --ksKeyPass ${{ secrets.signkey }} --ksPass ${{ secrets.signkey }}
 
       - name: Get BiliBili Apk Info
         id: BiliBili-apk
